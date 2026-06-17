@@ -25,8 +25,9 @@ Karena proyek ini memiliki antarmuka grafis (*Web UI*), Anda **wajib** menginsta
 Setelah terinstal, Anda perlu mengunduh pustaka (*modules*) pembangun React-nya dengan cara:
 1. Buka Terminal / *Command Prompt*.
 2. Masuk ke dalam direktori UI dengan perintah: `cd ui`
-3. Jalankan proses instalasi: `npm install`
-4. Tunggu hingga proses pengunduhan selesai.
+3. Salin file *environment* bawaan: *copy* file `.env.example` menjadi `.env` (berisi tautan port API).
+4. Jalankan proses instalasi: `npm install`
+5. Tunggu hingga proses pengunduhan selesai.
 
 ## Struktur Direktori
 Pastikan struktur folder pada *workspace* Anda menyerupai format berikut agar program berjalan lancar:
