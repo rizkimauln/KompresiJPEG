@@ -17,7 +17,7 @@ Sebelum menjalankan proyek ini, pastikan Anda telah menyelesaikan tahapan instal
 ### 0. Clone Repositori (Unduh Kode Sumber)
 Langkah pertama adalah menyalin seluruh kode sumber proyek ini ke komputer lokal Anda. Buka Terminal atau *Command Prompt*, lalu jalankan perintah berikut:
 ```bash
-git clone <URL_REPOSITORY_ANDA>
+git clone https://github.com/rizkimauln/KompresiJPEG.git
 cd "Nama_Folder_Repositori"
 ```
 *(Catatan: Ganti `<URL_REPOSITORY_ANDA>` dengan tautan dari repositori GitHub/GitLab Anda).*
