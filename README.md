@@ -1,6 +1,6 @@
 # Praktikum Kompresi Gambar (Ekstensi JPEG)
 
-Repositori ini memuat implementasi tugas praktikum kelompok mengenai kompresi citra digital untuk format `.jpeg`. Algoritma ditulis menggunakan bahasa pemrograman Python dalam format Jupyter Notebook.
+Repositori ini memuat implementasi tugas praktikum kelompok mengenai kompresi citra digital untuk format `.jpeg`. Algoritma ditulis menggunakan bahasa pemrograman Python dalam format Jupyter Notebook, dan dilengkapi dengan antarmuka grafis (Web UI).
 
 ## Deskripsi Tugas
 1. **Algoritma yang Digunakan** (Kompresi Lossy):
@@ -8,11 +8,19 @@ Repositori ini memuat implementasi tugas praktikum kelompok mengenai kompresi ci
    - **Principal Component Analysis (PCA)**
    - **Non-negative Matrix Factorization (NMF)**
 2. **Data Uji**: 20 gambar berekstensi `.jpeg` yang terdapat pada direktori `jpeg`.
-3. **Luaran (Output)**: Menampilkan perbandingan gambar asli dan hasil kompresi secara visual beserta ukuran *file*-nya dan persentase reduksinya.
+3. **Luaran (Output)**: Menampilkan perbandingan gambar asli dan hasil kompresi secara visual beserta ukuran *file*-nya, persentase reduksi ukurannya, durasi waktu pengeksekusian kompresi, serta grafik rangkuman rata-rata performa seluruh algoritma.
 
 ## Prasyarat & Instalasi (Dependencies)
 
-Sebelum menjalankan proyek ini, pastikan Anda telah menyelesaikan dua tahap instalasi berikut:
+Sebelum menjalankan proyek ini, pastikan Anda telah menyelesaikan tahapan instalasi berikut:
+
+### 0. Clone Repositori (Unduh Kode Sumber)
+Langkah pertama adalah menyalin seluruh kode sumber proyek ini ke komputer lokal Anda. Buka Terminal atau *Command Prompt*, lalu jalankan perintah berikut:
+```bash
+git clone <URL_REPOSITORY_ANDA>
+cd "Nama_Folder_Repositori"
+```
+*(Catatan: Ganti `<URL_REPOSITORY_ANDA>` dengan tautan dari repositori GitHub/GitLab Anda).*
 
 ### 1. Instalasi Mesin Kompresi (Backend Python)
 Program ini membutuhkan Python 3.x. Buka *Command Prompt* atau Terminal pada root folder proyek, lalu jalankan perintah ini untuk menginstal seluruh pustaka matematis dan infrastruktur server Flask:
@@ -48,7 +56,7 @@ Compresi/
 2. Buka *notebook* `Kompresi_FFT_PCA_NMF_JPEG.ipynb` menggunakan Jupyter Notebook, JupyterLab, atau Visual Studio Code.
 3. Sel kode pertama akan mengeksekusi instalasi referensi pustaka (*library*) tambahan secara otomatis. Tunggu hingga selesai.
 4. Jalankan (*Run All*) seluruh sel kode dari atas hingga bawah.
-5. Tabel komparasi dan sub-plot visualisasi dari ketiga algoritma akan ditampilkan langsung di bagian akhir *notebook*.
+5. Tabel komparasi waktu & memori kompresi, sub-plot visualisasi gambar, dan **Grafik Rata-rata Performa Algoritma** akan langsung ditampilkan di bagian akhir *notebook*.
 
 ### B. Menggunakan Web UI Interaktif (Terbaru!)
 Proyek ini sekarang dilengkapi dengan antarmuka grafis (UI) berbasis web yang modern.
@@ -65,10 +73,12 @@ Proyek ini sekarang dilengkapi dengan antarmuka grafis (UI) berbasis web yang mo
    npm run dev
    ```
 4. Buka tautan lokal yang muncul (biasanya `http://localhost:5173`) di browser Anda.
-5. *Drag and Drop* gambar JPEG Anda ke dalam area unggah (Upload Zone) di dalam web, dan lihat keajaiban kompresinya secara visual!
-6. Klik tombol **Unduh Gambar** (ikon *download*) di bawah masing-masing kartu output untuk menyimpan gambar hasil kompresi ke perangkat Anda secara instan.
+5. Anda dapat mengunggah **satu atau banyak file sekaligus (Multiple Upload)** melalui area *Drag and Drop*. 
+6. Sistem akan memproses algoritma dan menampilkan hasilnya. Anda bisa berpindah tampilan antar gambar menggunakan menu **Pagination** atau dengan **mengklik salah satu baris di dalam tabel**.
+7. Di bagian bawah UI, disajikan matriks tabel berisi komparasi ukuran asli fisik data, waktu eksekusi kompresi, serta **Diagram (Bar Chart)** yang merangkum rata-rata pengurangan memori kompresi dari seluruh kumpulan gambar yang telah Anda unggah.
+8. Klik tombol **Unduh Gambar** (ikon *download*) di bawah masing-masing kartu output untuk menyimpan gambar ke perangkat Anda.
 
-> **Catatan Kompresi**: Saat ini nilai rasio kompresinya dikunci pada pengaturan paling optimal di dalam *backend* (FFT menyisakan 15% frekuensi, sementara PCA/NMF menggunakan 80 komponen fitur).
+> **Catatan Kompresi**: Saat ini nilai rasio kompresinya dikunci pada pengaturan paling optimal di dalam *backend* (FFT menyisakan 15% frekuensi, sementara PCA/NMF menggunakan 80 komponen fitur). Ukuran *file* divalidasi langsung melalui pengecekan wujud fisik OS secara natural demi akurasi pelaporan reduksi.
 
 ## Tinjauan Metodologi
 - **Fast Fourier Transform (FFT)**: Memindahkan struktur citra spasial menjadi domain spektrum gelombang kompleks (domain frekuensi). Menggunakan fungsi *Low-Pass Filter* untuk membuang detail spektrum frekuensi tinggi yang sering tidak disadari mata, lalu merekonstruksinya (Lossy).

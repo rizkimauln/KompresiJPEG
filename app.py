@@ -1,5 +1,6 @@
 import os
 import io
+import time
 import base64
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -121,28 +122,38 @@ def compress_endpoint():
         img_pil = Image.open(file.stream).convert('RGB')
         img_array = np.array(img_pil)
         
-        # Mengambil referensi ukuran awal dari gambar yang diunggah
-        _, orig_size = pil_to_base64_and_size(img_pil, quality=100)
-        orig_b64, orig_size = pil_to_base64_and_size(img_pil, quality=80) 
+        # Mengambil referensi ukuran awal dari gambar yang diunggah secara fisik
+        file.seek(0, os.SEEK_END)
+        orig_size = file.tell() / 1024.0
+        file.seek(0)
+        
+        orig_b64, _ = pil_to_base64_and_size(img_pil, quality=80)
         
         # 1. Jalankan Algoritma FFT
+        start_time = time.time()
         fft_array = compress_image_fft(img_array, keep_fraction=0.15)
+        fft_time = time.time() - start_time
         fft_b64, fft_size = pil_to_base64_and_size(Image.fromarray(fft_array))
         fft_reduction = ((orig_size - fft_size) / orig_size) * 100 if orig_size > 0 else 0
         
         # 2. Jalankan Algoritma PCA
+        start_time = time.time()
         pca_array = compress_image_pca(img_array, n_components=80)
+        pca_time = time.time() - start_time
         pca_b64, pca_size = pil_to_base64_and_size(Image.fromarray(pca_array))
         pca_reduction = ((orig_size - pca_size) / orig_size) * 100 if orig_size > 0 else 0
         
         # 3. Jalankan Algoritma NMF
+        start_time = time.time()
         nmf_array = compress_image_nmf(img_array, n_components=80)
+        nmf_time = time.time() - start_time
         nmf_b64, nmf_size = pil_to_base64_and_size(Image.fromarray(nmf_array))
         nmf_reduction = ((orig_size - nmf_size) / orig_size) * 100 if orig_size > 0 else 0
         
         # Mengembalikan paket JSON berisi gambar yang siap ditampilkan oleh React
         return jsonify({
             'success': True,
+            'filename': file.filename,
             'original': {
                 'image': f'data:image/jpeg;base64,{orig_b64}',
                 'size': orig_size
@@ -150,17 +161,20 @@ def compress_endpoint():
             'fft': {
                 'image': f'data:image/jpeg;base64,{fft_b64}',
                 'size': fft_size,
-                'reduction': fft_reduction
+                'reduction': fft_reduction,
+                'duration': fft_time
             },
             'pca': {
                 'image': f'data:image/jpeg;base64,{pca_b64}',
                 'size': pca_size,
-                'reduction': pca_reduction
+                'reduction': pca_reduction,
+                'duration': pca_time
             },
             'nmf': {
                 'image': f'data:image/jpeg;base64,{nmf_b64}',
                 'size': nmf_size,
-                'reduction': nmf_reduction
+                'reduction': nmf_reduction,
+                'duration': nmf_time
             }
         })
         
