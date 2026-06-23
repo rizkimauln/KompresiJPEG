@@ -25,7 +25,7 @@ cd "Nama_Folder_Repositori"
 ### 1. Instalasi Mesin Kompresi (Backend Python)
 Program ini membutuhkan Python 3.x. Buka *Command Prompt* atau Terminal pada root folder proyek, lalu jalankan perintah ini untuk menginstal seluruh pustaka matematis dan infrastruktur server Flask:
 ```bash
-pip install numpy Pillow matplotlib pandas scikit-learn flask flask-cors werkzeug
+pip install -r requirements.txt
 ```
 
 ### 2. Instalasi Antarmuka Web (Frontend Node.js)
@@ -43,6 +43,8 @@ Pastikan struktur folder pada *workspace* Anda menyerupai format berikut agar pr
 Compresi/
 ├── Kompresi_FFT_PCA_NMF_JPEG.ipynb     # Notebook utama kompresi JPEG
 ├── app.py                              # Backend API Server (Flask)
+├── requirements.txt                    # Daftar library backend Python
+├── Procfile                            # Konfigurasi deployment web server (Gunicorn)
 ├── ui/                                 # Frontend Web UI (React)
 ├── jpeg/                               # Direktori gambar input JPEG (.jpeg)
 ├── hasil_kompresi_jpeg/                # Direktori output gambar setelah kompresi
@@ -84,3 +86,10 @@ Proyek ini sekarang dilengkapi dengan antarmuka grafis (UI) berbasis web yang mo
 - **Fast Fourier Transform (FFT)**: Memindahkan struktur citra spasial menjadi domain spektrum gelombang kompleks (domain frekuensi). Menggunakan fungsi *Low-Pass Filter* untuk membuang detail spektrum frekuensi tinggi yang sering tidak disadari mata, lalu merekonstruksinya (Lossy).
 - **Principal Component Analysis (PCA)**: Teknik perombakan statistik *Principal Component*. Matriks citra dijabarkan menjadi fitur berdimensi kecil sesuai dengan tingkat varians, menekan ukuran *file* dengan membuang dimensi-dimensi fitur terendah.
 - **Non-negative Matrix Factorization (NMF)**: Mengeksploitasi struktur angka warna RGB citra natural yang selalu positif dengan menggunakan dekomposisi matriks secara parsial (faktorisasi aditif non-negatif).
+
+## Deployment (Railway/Heroku/Render)
+Proyek ini sudah dikonfigurasi agar siap di-deploy ke layanan *cloud* platform-as-a-service (PaaS) seperti Railway:
+- Terdapat `requirements.txt` untuk instalasi dependensi otomatis.
+- Terdapat `Procfile` yang menginstruksikan server untuk menggunakan `gunicorn`.
+- Skrip `app.py` sudah diatur agar mendengarkan ke host `0.0.0.0` dan menyesuaikan `PORT` environment yang disediakan oleh *cloud provider*.
+Cukup hubungkan repositori GitHub ini ke dashboard *cloud provider* pilihan Anda dan *deploy* secara otomatis.
