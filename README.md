@@ -1,3 +1,11 @@
+---
+title: Kompresi JPEG
+emoji: 🖼️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
 # Praktikum Kompresi Gambar (Ekstensi JPEG)
 
 Repositori ini memuat implementasi tugas praktikum kelompok mengenai kompresi citra digital untuk format `.jpeg`. Algoritma ditulis menggunakan bahasa pemrograman Python dalam format Jupyter Notebook, dan dilengkapi dengan antarmuka grafis (Web UI).
