@@ -1,8 +1,9 @@
-name: Sync to Hugging Face hub
+name: Sync to Hugging Face Hub
 on:
   push:
     branches: [main]
-  # Memungkinkan kita menjalankan workflow secara manual dari tab Actions
+
+  # Menjalankan sinkronisasi secara manual
   workflow_dispatch:
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - name: Push to Hugging Face
+      - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://rizkimauln:$HF_TOKEN@huggingface.co/spaces/rizkimauln/kompresijpegservice main
+        run: git push https://rizkimauln:$HF_TOKEN@huggingface.co/spaces/rizkimauln/kompresijpegservice main --force
