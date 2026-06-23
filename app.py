@@ -10,7 +10,7 @@ from sklearn.decomposition import PCA, NMF
 
 app = Flask(__name__)
 # Mengizinkan aplikasi React (berbeda port) untuk mengakses API ini
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # ----------------- FUNGSI ALGORITMA KOMPRESI -----------------
 
