@@ -87,9 +87,18 @@ Proyek ini sekarang dilengkapi dengan antarmuka grafis (UI) berbasis web yang mo
 - **Principal Component Analysis (PCA)**: Teknik perombakan statistik *Principal Component*. Matriks citra dijabarkan menjadi fitur berdimensi kecil sesuai dengan tingkat varians, menekan ukuran *file* dengan membuang dimensi-dimensi fitur terendah.
 - **Non-negative Matrix Factorization (NMF)**: Mengeksploitasi struktur angka warna RGB citra natural yang selalu positif dengan menggunakan dekomposisi matriks secara parsial (faktorisasi aditif non-negatif).
 
-## Deployment (Railway/Heroku/Render)
+## Deployment (Production)
+
+### 1. Deploy Backend (Railway / Render / Heroku)
 Proyek ini sudah dikonfigurasi agar siap di-deploy ke layanan *cloud* platform-as-a-service (PaaS) seperti Railway:
 - Terdapat `requirements.txt` untuk instalasi dependensi otomatis.
 - Terdapat `Procfile` yang menginstruksikan server untuk menggunakan `gunicorn`.
 - Skrip `app.py` sudah diatur agar mendengarkan ke host `0.0.0.0` dan menyesuaikan `PORT` environment yang disediakan oleh *cloud provider*.
 Cukup hubungkan repositori GitHub ini ke dashboard *cloud provider* pilihan Anda dan *deploy* secara otomatis.
+
+### 2. Deploy Frontend UI (Vercel / Netlify / Railway)
+Setelah Backend berhasil berjalan dan Anda mendapatkan URL API-nya, Anda bisa men-deploy UI React:
+1. Buka file `.env` di dalam folder `ui/` (atau atur Environment Variables di *cloud provider*) dan atur `VITE_API_URL` dengan URL Backend produksi Anda (contoh: `VITE_API_URL=https://kompresijpeg.up.railway.app`).
+2. Jika Anda men-deploy ke **Vercel**, **Netlify**, atau platform lain: hubungkan repositori ini, pastikan untuk mengatur *Root Directory* ke `ui` (atau jalankan perintah dari dalam folder `ui`).
+3. Perintah *Build* yang digunakan adalah `npm run build` dan folder outputnya adalah `dist`.
+4. UI akan ter-deploy dan otomatis bisa berkomunikasi dengan server backend Anda!
