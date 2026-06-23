@@ -106,6 +106,10 @@ def pil_to_base64_and_size(img_pil, quality=80):
 
 # ----------------- ROUTING API -----------------
 
+@app.route('/')
+def index():
+    return "API Backend Kompresi JPEG Berjalan Lancar! Gunakan endpoint /api/compress"
+
 # Titik akses (endpoint) untuk menangani permintaan kompresi dari antarmuka pengguna
 @app.route('/api/compress', methods=['POST'])
 def compress_endpoint():
